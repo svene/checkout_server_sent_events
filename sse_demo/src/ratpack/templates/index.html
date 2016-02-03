@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SSE Demo</title>
+
+<script>
+if(typeof(EventSource) !== "undefined") {
+    var source = new EventSource("sse");
+    source.onmessage = function(event) {
+    	console.log("success", event.data);
+        document.getElementById("result").innerHTML = event.data + "<br>";
+    };
+
+    source.addEventListener('error', function(e) {
+      console.log("error: ", e);
+      if (e.readyState == EventSource.CLOSED) {
+        console.log("error: Connection was closed.");
+      }
+    }, false);
+
+} else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
+}
+</script>
+
+  </head>
+
+  <body>
+	<h1>Getting server updates</h1>
+	<div id="result"></div>
+  </body>
+
+</body>
+</html>
+
